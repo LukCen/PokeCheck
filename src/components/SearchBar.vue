@@ -61,7 +61,7 @@ const toggleFilter = (type: string | null) => {
     <input type="search" name="search" id="poke-search" class="border border-white w-[400px] mx-auto text-white px-4 py-1" placeholder="Type in to search">
   </section>
   <section class="filters mx-auto flex gap-2">
-    <button v-for="type in filteredTypes" :key="type.name" @click="toggleFilter(type.name)" class="text-white capitalize  cursor-pointer px-2 py-1 rounded-xl"
+    <button v-for="type in filteredTypes" :key="type.name" @click="toggleFilter(type.name)" class="text-white capitalize  cursor-pointer px-2 py-1 rounded-xl text-shadow-black text-shadow-lg"
       :style="{ background: typeColors[type.name] }">{{ type.name
       }}</button>
   </section>

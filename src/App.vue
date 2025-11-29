@@ -6,9 +6,9 @@ import SearchBar from './components/SearchBar.vue';
 </script>
 
 <template>
-  <main class="flex flex-col gap-4">
+  <main class="flex flex-col gap-4 bg-slate-700">
     <header class="mx-auto flex gap-2">
-      <img src="/poke-ball.png" height="40" width="40" alt="">
+      <img src="/favicon.svg" height="40" width="40" alt="">
       <h1 class="text-orange-500 text-4xl font-bold">Pokemon Explorer</h1>
     </header>
     <Suspense>

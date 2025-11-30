@@ -29,29 +29,13 @@ const typeColors: Record<string, string> = {
 };
 const api = getData()
 async function fetchMore() {
-  // const pkm = await api.pokemonMultiple(store.count, store.count + numberToFetch)
-  // // console.log(store.count, typeof store.count)
-  // if (pkm) {
-  //   store.updatePokemonList(numberToFetch)
-  //   visiblePokemon = store.count
-  //   return pkm
-  // } else {
-  //   return
-  // }
-
-
   const newPokemon = await api.pokemonMultiple(store.count, numberToFetch)
   if (newPokemon) {
     pokeData.value.push(...newPokemon)
     store.updatePokemonList(numberToFetch)
   }
 }
-// const pokeDataNew = await fetchMore()
-// let pokeData = pokeDataNew
-// watchEffect(async () => {
-//   setInterval(async () => { await fetchMore() }, 1000)
 
-// })
 fetchMore()
 </script>
 <template>

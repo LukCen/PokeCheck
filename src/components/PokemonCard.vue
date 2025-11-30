@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { getData } from '@/helpers/ApiCaller';
+import { usePokemonStore } from '@/stores/store';
+import { ref } from 'vue';
+
+const numberToFetch = 20
+const store = usePokemonStore()
+const pokeData = ref<any[]>([])
 
 const typeColors: Record<string, string> = {
   normal: "#A8A77A",
@@ -21,12 +27,32 @@ const typeColors: Record<string, string> = {
   steel: "#B7B7CE",
   fairy: "#D685AD"
 };
+const api = getData()
+async function fetchMore() {
+  // const pkm = await api.pokemonMultiple(store.count, store.count + numberToFetch)
+  // // console.log(store.count, typeof store.count)
+  // if (pkm) {
+  //   store.updatePokemonList(numberToFetch)
+  //   visiblePokemon = store.count
+  //   return pkm
+  // } else {
+  //   return
+  // }
 
 
-const test = getData()
-const pokeDataNew = await test.pokemonMultiple(1, 20)
-let pokeData = pokeDataNew
+  const newPokemon = await api.pokemonMultiple(store.count, numberToFetch)
+  if (newPokemon) {
+    pokeData.value.push(...newPokemon)
+    store.updatePokemonList(numberToFetch)
+  }
+}
+// const pokeDataNew = await fetchMore()
+// let pokeData = pokeDataNew
+// watchEffect(async () => {
+//   setInterval(async () => { await fetchMore() }, 1000)
 
+// })
+fetchMore()
 </script>
 <template>
   <section class="grid grid-cols-2 gap-4 px-2">
@@ -44,4 +70,5 @@ let pokeData = pokeDataNew
       </div>
     </div>
   </section>
+  <button @click="fetchMore" class="btn bg-green-300 text-black font-black">FETCH MORE</button>
 </template>

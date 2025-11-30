@@ -16,7 +16,7 @@ function getData() {
   async function pokemonMultiple(startAt?: number, amount?: number) {
     const pokePromises = []
     if (startAt && amount) {
-      for (let i = startAt; i <= amount; i++) {
+      for (let i = startAt; i < amount + startAt; i++) {
         pokePromises.push(pokemonSingle(i))
       }
     }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getData } from '@/helpers/ApiCaller';
 import { usePokemonStore } from '@/stores/store';
-import { ref } from 'vue';
+import { ref, TransitionGroup } from 'vue';
 
 const numberToFetch = 20
 const store = usePokemonStore()
@@ -39,8 +39,9 @@ async function fetchMore() {
 fetchMore()
 </script>
 <template>
-  <section class="grid grid-cols-2 gap-4 px-2">
-    <div v-for="poke in pokeData" :style="{
+
+  <TransitionGroup class="grid grid-cols-2 gap-4 px-2" name="pokemon-list" tag="section">
+    <div :key="poke" v-for="poke in pokeData" :style="{
       background: poke.types.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
     }" class="flex flex-col items-center text-white rounded py-1">
       <img :src="poke.sprites.front_default" alt="">
@@ -53,6 +54,7 @@ fetchMore()
         </div>
       </div>
     </div>
-  </section>
+  </TransitionGroup>
+
   <button @click="fetchMore" class="btn bg-green-300 text-black font-black">FETCH MORE</button>
 </template>

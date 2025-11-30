@@ -1,1 +1,21 @@
-@import 'tailwindcss'
+@import 'tailwindcss';
+
+
+.pokemon-list-enter-active,
+.pokemon-list-leave-active {
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+/* Starting state when entering, ending state when leaving */
+.pokemon-list-enter-from,
+.pokemon-list-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Ending state when entering, starting state when leaving */
+.pokemon-list-enter-to,
+.pokemon-list-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}

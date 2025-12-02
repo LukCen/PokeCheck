@@ -28,20 +28,23 @@ const typeColors: Record<string, string> = {
   fairy: "#D685AD"
 };
 const api = getData()
+
 async function fetchMore() {
   const newPokemon = await api.pokemonMultiple(store.count, numberToFetch)
   if (newPokemon) {
     pokeData.value.push(...newPokemon)
     store.updatePokemonList(numberToFetch)
   }
+  console.log(store.pokemonTypesToShow.length)
 }
+
 
 fetchMore()
 </script>
 <template>
 
   <TransitionGroup class="grid grid-cols-2 gap-4 px-2" name="pokemon-list" tag="section">
-    <div :key="poke" v-for="poke in pokeData" :style="{
+    <div v-show="store.pokemonTypesToShow.length === 0 || store.pokemonTypesToShow.includes(poke.types[0]?.type.name || poke.types[1]?.type.name)" :key="poke" v-for="poke in pokeData" :style="{
       background: poke.types.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
     }" class="flex flex-col items-center text-white rounded py-1 text-shadow-black text-shadow-md">
       <img :src="poke.sprites.front_default" alt="">
@@ -49,7 +52,7 @@ fetchMore()
       <p class="text-xl">#{{ poke.id }}</p>
       <div class="types flex gap-2">
 
-        <div v-for="type in poke.types" class="type-pill bg-[rgba(255,255,255,0.3)] px-2 py-1 capitalize rounded-xl text-xl">
+        <div :data-type="type.type.name" v-for="type in poke.types" class="type-pill bg-[rgba(255,255,255,0.3)] px-2 py-1 capitalize rounded-xl text-xl">
           {{ type.type.name }}
         </div>
       </div>

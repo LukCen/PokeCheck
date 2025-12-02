@@ -1,7 +1,9 @@
 <script setup lang="ts">
 //@ts-ignore
-import { computed, ref } from 'vue'
+import { usePokemonStore } from '@/stores/store'
+import { ref } from 'vue'
 
+const store = usePokemonStore()
 const typeColors: Record<string, string> = {
   normal: "#A8A77A",
   fire: "#EE8130",
@@ -30,30 +32,21 @@ const pokeList = async () => {
   }
 }
 
-const selectedTypes = ref<[string | null]>([null])
 
 const pokeTypes = await pokeList()
-
-
-const pokeRef = ref(pokeTypes)
 
 // na zdjęciu poglądowym nie było tych twóch typów, nie mają również przypisanych kolorów w obiekcie typeColors, więc wycinamy
 //@ts-ignore
 const filteredTypes = pokeTypes.filter((item: string) => item.name !== "unknown" && item.name !== "stellar")
 
-const pokeFiltered = computed(() => {
-  if (!selectedTypes.value) {
-    // gdy żaden filtr nie jest wybrany, pokazujemy wszystkie pokemony
-    return pokeRef.value
+function handleFilters(type: string) {
+  if (!store.pokemonTypesToShow.includes(type)) {
+    store.addPokemonTypeToShow(type)
+  } else {
+    store.pokemonTypesToShow.splice(store.pokemonTypesToShow.indexOf(type), 1)
   }
-  return pokeRef.value.filter((poke: any) => poke.types.some((t: any) => t.type.name === selectedTypes.value))
-
-})
-
-const toggleFilter = (type: string | null) => {
-  //@ts-ignore
-  selectedTypes.value = selectedTypes.value === type ? null : type
 }
+
 </script>
 
 <template>
@@ -61,7 +54,7 @@ const toggleFilter = (type: string | null) => {
     <input type="search" name="search" id="poke-search" class="border border-white w-[400px] mx-auto text-white px-4 py-1" placeholder="Type in to search">
   </section>
   <section class="filters mx-auto flex gap-2">
-    <button v-for="type in filteredTypes" :key="type.name" @click="toggleFilter(type.name)" class="text-white capitalize  cursor-pointer px-2 py-1 rounded-xl text-shadow-black text-shadow-lg"
+    <button @click="handleFilters(type.name)" v-for="type in filteredTypes" :key="type.name" class="text-white capitalize  cursor-pointer px-2 py-1 rounded-xl text-shadow-black text-shadow-lg"
       :style="{ background: typeColors[type.name] }">{{ type.name
       }}</button>
   </section>

@@ -40,6 +40,7 @@ const pokeTypes = await pokeList()
 const filteredTypes = pokeTypes.filter((item: string) => item.name !== "unknown" && item.name !== "stellar")
 
 function handleFilters(type: string) {
+
   if (!store.pokemonTypesToShow.includes(type)) {
     store.addPokemonTypeToShow(type)
   } else {
@@ -54,8 +55,8 @@ function handleFilters(type: string) {
     <input type="search" name="search" id="poke-search" class="border border-white w-[400px] mx-auto text-white px-4 py-1" placeholder="Type in to search">
   </section>
   <section class="filters mx-auto flex gap-2">
-    <button @click="handleFilters(type.name)" v-for="type in filteredTypes" :key="type.name" class="text-white capitalize  cursor-pointer px-2 py-1 rounded-xl text-shadow-black text-shadow-lg"
-      :style="{ background: typeColors[type.name] }">{{ type.name
+    <button @click="handleFilters(type.name)" v-for="type in filteredTypes" :key="type.name" :class="{ ' border-white border-solid': store.pokemonTypesToShow.includes(type.name) }"
+      class="border-4 border-transparent text-white capitalize  cursor-pointer px-2 py-1 rounded-xl text-shadow-black text-shadow-lg" :style="{ background: typeColors[type.name] }">{{ type.name
       }}</button>
   </section>
 </template>

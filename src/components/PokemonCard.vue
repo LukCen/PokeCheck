@@ -46,7 +46,7 @@ fetchMore()
   <TransitionGroup class="grid grid-cols-2 gap-4 px-2" name="pokemon-list" tag="section">
     <div v-show="store.pokemonTypesToShow.length === 0 || store.pokemonTypesToShow.includes(poke.types[0]?.type.name || poke.types[1]?.type.name)" :key="poke" v-for="poke in pokeData" :style="{
       background: poke.types.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
-    }" class="flex flex-col items-center text-white rounded py-1 text-shadow-black text-shadow-md">
+    }" class="pokemon-card flex flex-col items-center text-white rounded py-1">
       <img :src="poke.sprites.front_default" alt="">
       <p class="capitalize text-3xl">{{ poke.name }}</p>
       <p class="text-xl">#{{ poke.id }}</p>
@@ -59,5 +59,11 @@ fetchMore()
     </div>
   </TransitionGroup>
 
-  <button @click="fetchMore" class="btn bg-green-300 text-black font-black">FETCH MORE</button>
+  <button @click="fetchMore" class="px-4 py-2 w-fit mx-auto bg-green-600 text-white font-black tracking-widest cursor-pointer">FETCH MORE</button>
 </template>
+<style scoped>
+button, .pokemon-card {
+  -webkit-text-stroke: 4px rgba(0, 0, 0, 1);
+  paint-order: stroke fill;
+}
+</style>

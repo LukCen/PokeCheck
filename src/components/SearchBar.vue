@@ -55,8 +55,17 @@ function handleFilters(type: string) {
     <input type="search" name="search" id="poke-search" class="border border-white w-[400px] mx-auto text-white px-4 py-1" placeholder="Type in to search">
   </section>
   <section class="filters mx-auto flex gap-2">
-    <button @click="handleFilters(type.name)" v-for="type in filteredTypes" :key="type.name" :class="{ ' border-white border-solid': store.pokemonTypesToShow.includes(type.name) }"
-      class="border-4 border-transparent text-white capitalize  cursor-pointer px-2 py-1 rounded-xl text-shadow-black text-shadow-lg" :style="{ background: typeColors[type.name] }">{{ type.name
-      }}</button>
+    <button @click="handleFilters(type.name)" v-for="type in filteredTypes" :key="type.name" :class="{ 'border-white border-solid': store.pokemonTypesToShow.includes(type.name) }"
+      class="border-4 border-transparent capitalize cursor-pointer px-2 py-1 rounded-xl font-semibold text-white tracking-wider" :style="{ background: typeColors[type.name] }">
+      {{
+        type.name
+      }}
+    </button>
   </section>
 </template>
+<style scoped>
+button {
+  -webkit-text-stroke: 4px rgba(0, 0, 0, 1);
+  paint-order: stroke fill;
+}
+</style>

@@ -1,32 +1,17 @@
 <script setup lang="ts">
+import { typeColors } from '@/helpers/AdditionalData';
 import { getData } from '@/helpers/ApiCaller';
 import { usePokemonStore } from '@/stores/store';
 import { ref, TransitionGroup } from 'vue';
 
-const numberToFetch = 20
+// how many pokemon are to appear per fetch
+const numberToFetch = 24
 const store = usePokemonStore()
+
+// data pulled from API goes in here
 const pokeData = ref<any[]>([])
 
-const typeColors: Record<string, string> = {
-  normal: "#A8A77A",
-  fire: "#EE8130",
-  water: "#6390F0",
-  electric: "#F7D02C",
-  grass: "#7AC74C",
-  ice: "#96D9D6",
-  fighting: "#C22E28",
-  poison: "#A33EA1",
-  ground: "#E2BF65",
-  flying: "#A98FF3",
-  psychic: "#F95587",
-  bug: "#A6B91A",
-  rock: "#B6A136",
-  ghost: "#735797",
-  dragon: "#6F35FC",
-  dark: "#705746",
-  steel: "#B7B7CE",
-  fairy: "#D685AD"
-};
+
 const api = getData()
 
 async function fetchMore() {
@@ -35,18 +20,17 @@ async function fetchMore() {
     pokeData.value.push(...newPokemon)
     store.updatePokemonList(numberToFetch)
   }
-  console.log(store.pokemonTypesToShow.length)
 }
 
-
+// initial fetch to populate the screen
 fetchMore()
 </script>
 <template>
 
-  <TransitionGroup class="grid grid-cols-2 gap-4 px-2" name="pokemon-list" tag="section">
+  <TransitionGroup class="grid grid-cols-4 gap-4 p-4" name="pokemon-list" tag="section">
     <div v-show="store.pokemonTypesToShow.length === 0 || store.pokemonTypesToShow.includes(poke.types[0]?.type.name || poke.types[1]?.type.name)" :key="poke" v-for="poke in pokeData" :style="{
       background: poke.types.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
-    }" class="pokemon-card flex flex-col items-center text-white rounded py-1">
+    }" class="pokemon-card flex flex-col items-center text-white rounded py-4">
       <img :src="poke.sprites.front_default" alt="">
       <p class="capitalize text-3xl">{{ poke.name }}</p>
       <p class="text-xl">#{{ poke.id }}</p>
@@ -62,6 +46,7 @@ fetchMore()
   <button @click="fetchMore" class="px-4 py-2 w-fit mx-auto bg-green-600 text-white font-black tracking-widest cursor-pointer">FETCH MORE</button>
 </template>
 <style scoped>
+/* border around text for better visibility, no matter the background color */
 button, .pokemon-card {
   -webkit-text-stroke: 4px rgba(0, 0, 0, 1);
   paint-order: stroke fill;

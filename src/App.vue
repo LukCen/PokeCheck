@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { Suspense } from 'vue';
-import PokemonCard from './components/PokemonCard.vue';
-import SearchBar from './components/SearchBar.vue';
+import { RouterView } from 'vue-router';
+
 
 </script>
 
@@ -12,12 +11,7 @@ import SearchBar from './components/SearchBar.vue';
       <h1 class="text-orange-500 text-4xl font-bold">Pokemon Explorer</h1>
     </header>
     <Suspense>
-      <SearchBar />
-    </Suspense>
-    <Suspense>
-      <PokemonCard />
+      <RouterView />
     </Suspense>
   </main>
 </template>
-
-<style scoped></style>

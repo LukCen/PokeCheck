@@ -18,7 +18,7 @@ const pokeTypes = await pokeList()
 
 // na zdjęciu poglądowym nie było tych twóch typów, nie mają również przypisanych kolorów w obiekcie typeColors, więc wycinamy
 //@ts-ignore
-const filteredTypes = pokeTypes.filter((item: string) => item.name !== "unknown" && item.name !== "stellar")
+const filteredTypes = pokeTypes?.filter((item: string) => item.name !== "unknown" && item.name !== "stellar")
 console.log(filteredTypes)
 function handleFilters(type: string) {
 

@@ -29,13 +29,12 @@ fetchMore()
 
   <TransitionGroup class="grid grid-cols-4 gap-4 p-4" name="pokemon-list" tag="section">
     <div v-show="store.pokemonTypesToShow.length === 0 || store.pokemonTypesToShow.includes(poke.types[0]?.type.name || poke.types[1]?.type.name)" :key="poke" v-for="poke in pokeData" :style="{
-      background: poke.types.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
+      background: poke?.types?.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
     }" class="pokemon-card flex flex-col items-center text-white rounded py-4">
       <img :src="poke.sprites.front_default" alt="">
       <p class="capitalize text-3xl">{{ poke.name }}</p>
       <p class="text-xl">#{{ poke.id }}</p>
       <div class="types flex gap-2">
-
         <div :data-type="type.type.name" v-for="type in poke.types" class="type-pill bg-[rgba(255,255,255,0.3)] px-2 py-1 capitalize rounded-xl text-xl">
           {{ type.type.name }}
         </div>

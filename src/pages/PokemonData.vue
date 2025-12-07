@@ -16,9 +16,17 @@ console.dir(pokemon)
         <span class="capitalize text-white">{{ String(key).replace('_', ' ') }} </span>
       </div>
     </div>
-    <div class="base-data grid grid-cols-4 gap-4">
+    <div class="base-data flex flex-col gap-4">
       <span class="capitalize">Name: {{ pokemon.name }}</span>
       <span>ID: {{ pokemon.id }}</span>
+      <table>
+        <thead>
+          <th v-for="stat in pokemon.stats" class="px-4 py-1 capitalize border-4 border-white">{{ stat.stat.name }}</th>
+        </thead>
+        <tbody>
+          <td class="text-center border border-white" v-for="stat in pokemon.stats">{{ stat.base_stat }}</td>
+        </tbody>
+      </table>
     </div>
   </section>
 

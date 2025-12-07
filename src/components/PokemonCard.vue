@@ -30,7 +30,7 @@ fetchMore()
   <TransitionGroup class="grid grid-cols-4 gap-4 p-4" name="pokemon-list" tag="section">
     <div v-show="store.pokemonTypesToShow.length === 0 || store.pokemonTypesToShow.includes(poke.types[0]?.type.name || poke.types[1]?.type.name)" :key="poke" v-for="poke in pokeData" :style="{
       background: poke?.types?.length === 1 ? typeColors[poke.types[0].type.name] : `linear-gradient(to right, ${poke.types.map((t: any) => typeColors[t.type.name]).join(', ')})`
-    }" class="pokemon-card flex flex-col items-center text-white rounded py-4">
+    }" class="pokemon-card flex flex-col items-center text-white rounded py-4 gap-2">
       <img :src="poke.sprites.front_default" alt="">
       <p class="capitalize text-3xl">{{ poke.name }}</p>
       <p class="text-xl">#{{ poke.id }}</p>
@@ -39,6 +39,9 @@ fetchMore()
           {{ type.type.name }}
         </div>
       </div>
+      <RouterLink class="px-2 py-1 bg-slate-600 rounded-xl hover:bg-slate-900 transition-colors duration-150 border-1 border-slate-100" :to="{ name: 'PokeData', params: { id: poke.id } }">
+        Go to
+      </RouterLink>
     </div>
   </TransitionGroup>
 

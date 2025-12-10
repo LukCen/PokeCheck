@@ -19,24 +19,35 @@ console.dir(pokemon)
       </div>
     </div>
     <div class="base-data flex flex-col gap-4">
-      <span class="capitalize">Name: {{ pokemon.name }}</span>
+      <h1 class="capitalize font-bold text-2xl">Name: {{ pokemon.name }}</h1>
       <span>ID: {{ pokemon.id }}</span>
-      <table>
-        <thead>
-          <th v-for="stat in pokemon.stats" class="px-4 py-1 capitalize border-4 border-white">
-            <Heart color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'hp'" />
-            <Sword color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'attack'" />
-            <Shield color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'defense'" />
-            <Swords color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'special-attack'" />
-            <ShieldEllipsis color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'special-defense'" />
-            <ChevronsUp color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'speed'" />
-            {{ stat.stat.name.replace('-', ' ') }}
-          </th>
-        </thead>
-        <tbody>
-          <td class="text-center border border-white" v-for="stat in pokemon.stats">{{ stat.base_stat }}</td>
-        </tbody>
-      </table>
+      <span v-for="type in pokemon.types" class="capitalize">Type: {{ type.type.name }}</span>
+      <div class="stats flex flex-col gap-2">
+        <h2>Stats</h2>
+        <table>
+          <thead>
+            <th v-for="stat in pokemon.stats" class="px-4 py-1 capitalize border-4 border-white">
+              <Heart color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'hp'" />
+              <Sword color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'attack'" />
+              <Shield color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'defense'" />
+              <Swords color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'special-attack'" />
+              <ShieldEllipsis color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'special-defense'" />
+              <ChevronsUp color="#ffffff" class="align-self-center mx-auto" :size="30" v-if="stat.stat.name === 'speed'" />
+              {{ stat.stat.name.replace('-', ' ') }}
+            </th>
+          </thead>
+          <tbody>
+            <td class="text-center border border-white" v-for="stat in pokemon.stats">{{ stat.base_stat }}</td>
+          </tbody>
+        </table>
+
+      </div>
+      <ul class="flex flex-col gap-2">
+        <h2>Abilities: </h2>
+        <li class="flex gap-2 capitalize" v-for="ability in pokemon.abilities">
+          {{ ability.ability.name.replace('-', ' ') }}
+        </li>
+      </ul>
     </div>
   </section>
 

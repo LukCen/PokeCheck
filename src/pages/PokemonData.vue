@@ -8,6 +8,27 @@ const api = getData()
 const pokemon = await api.pokemonSingle(route.params.id as string)
 // console.dir(pokemon)
 
+/**
+ * Custom implementation of the .replaceAll() method because TS is having a moment
+ * 
+ * @param target - string to execute the function on
+ * @param oldChar - character you want to replace
+ * @param newChar - character to replace oldChar with
+ */
+const customReplaceAll = (target: string, oldChar: string, newChar: string): string => {
+
+  const returnValue: string[] = []
+  const arrayfied = target.split('')
+  arrayfied.forEach((char: string) => {
+    if (char === oldChar) {
+      char = newChar
+      returnValue.push(char)
+    } else {
+      returnValue.push(char)
+    }
+  })
+  return returnValue.join('')
+}
 
 </script>
 
@@ -17,7 +38,7 @@ const pokemon = await api.pokemonSingle(route.params.id as string)
     <div class="gallery flex">
       <div v-show="typeof sprite === 'string'" v-for="sprite, index in pokemon.sprites" :key="index" class="photo-box flex flex-col items-center">
         <img :src="sprite" alt="" height="200" width="200">
-        <span class="capitalize text-white">{{ String(index).replaceAll('_', ' ') }} </span>
+        <span class="capitalize text-white">{{ customReplaceAll(String(index), '_', ' ') }} </span>
       </div>
     </div>
     <div class="base-data flex flex-col gap-4">

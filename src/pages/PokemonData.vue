@@ -7,6 +7,8 @@ const route = useRoute()
 const api = getData()
 const pokemon = await api.pokemonSingle(route.params.id as string)
 console.dir(pokemon)
+
+const regexNoSpecials = /[^a-zA-Z0-9_]+/
 </script>
 
 <template>
@@ -15,7 +17,7 @@ console.dir(pokemon)
     <div class="gallery flex">
       <div v-show="typeof sprite === 'string'" v-for="sprite, key in pokemon.sprites" class="photo-box flex flex-col items-center">
         <img :src="sprite" alt="" height="200" width="200">
-        <span class="capitalize text-white">{{ String(key).replace('_', ' ') }} </span>
+        <span class="capitalize text-white">{{ String(key).replaceAll('_', ' ') }} </span>
       </div>
     </div>
     <div class="base-data flex flex-col gap-4">
